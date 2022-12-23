@@ -1,0 +1,32 @@
+.calendar {
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #333;
+
+    td {
+        font-size: 16px;
+        padding: 10px;
+        min-width: 40px;
+        border: 1px solid #ddd;
+        text-align: center;
+
+        &.head {
+            background: #eee;
+            font-weight: bold;
+        }
+
+        &.invalid {
+            background: #ddd;
+        }
+
+        &.weekend {
+            background: #0e9edb;
+        }
+
+        &.holiday {
+            background: #4fc5f7;
+        }
+    }
+}
+
+
