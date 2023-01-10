@@ -18,10 +18,9 @@ export default function Calendar({ year, markedDatesScript }: CalendarProps) {
     const months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
     const rows = ["", ...months];
 
-    return <table className='calendar'>
-        <tbody>
+    return <div className='calendar'>
         {[...Array(12+1)].map((x, m) =>
-            <tr key={m}>
+            <div className='month' key={m}>
                 {[...Array(31+1)].map((x, d) =>
                     (
                         m === 0 || d === 0
@@ -29,10 +28,9 @@ export default function Calendar({ year, markedDatesScript }: CalendarProps) {
                             : <CalendarCell key={d} head={false} day={d} month={m} year={year} markers={markedDates[m][d]} />
                     )
                 )}
-            </tr>
+            </div>
         )}
-        </tbody>
-    </table>;
+    </div>;
 
 }
 

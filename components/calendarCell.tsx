@@ -1,9 +1,12 @@
+'use client';
+
 import React from 'react';
 import classnames from 'classnames';
 import { isHoliday } from 'feiertagejs';
 import {marker} from "./calendar";
-// @ts-ignore
-import colorsys from 'colorsys';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 
 type Props = {
     children?: React.ReactNode,
@@ -28,25 +31,29 @@ function getColor(category:string):string {
 export const CalendarCell: React.FC<Props> = ({ children, head, day, month, year, markers}: Props) => {
 
     if(!day || !month || !year || head) {
-        return <td className={classnames({
+        return <div className={classnames({
             'head': head
         })}>
             {children}
-        </td>;
+        </div>;
     }
+
 
     const date = new Date(year, month-1, day);
 
     if(date.getDate() !== day) {
-        return <td className='invalid'></td>;
+        return <div className='invalid' />;
     }
 
     if(date.getDay() === 0 || date.getDay() === 6) {
-        return <td className='weekend'></td>;
+
+        return <Tippy content={<span>Tooltip</span>}>
+            <div className='weekend' />
+        </Tippy>;
     }
 
     if(isHoliday(date, 'BY')) {
-        return <td className='holiday'></td>;
+        return <div className='holiday' />;
     }
 
 
@@ -60,8 +67,8 @@ export const CalendarCell: React.FC<Props> = ({ children, head, day, month, year
 
         } else {
 
-            let width = 10;
-            style.backgroundSize = width * markers.length + "px " + width * markers.length + "px ";
+            let width = 50;
+            style.backgroundSize = markers.length * width + "% " + markers.length * width + "% ";
 
 
             let colors = markers.map(m => getColor(m.category));
@@ -87,7 +94,7 @@ export const CalendarCell: React.FC<Props> = ({ children, head, day, month, year
     }
 
 
-    return <td style={style}></td>;
+    return <div style={style} />;
 };
 
 
